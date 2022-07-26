@@ -1,10 +1,10 @@
 import React from "react";
 import GameItem from "./GameItem";
-import { useGamesQuery } from "../services/rawgApi";
+import { usePopularGamesQuery } from "../services/rawgApi";
 
 const GameList = () => {
-  const { data, error, isLoading } = useGamesQuery({
-    ordering: "released",
+  const { data, error, isLoading } = usePopularGamesQuery({
+    page_size: 5
   });
 
   return (
