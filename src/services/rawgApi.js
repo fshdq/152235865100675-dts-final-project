@@ -8,7 +8,7 @@ export const rawgAPI = createApi({
 
   endpoints: (builder) => ({
     Games: builder.query({
-      query: () => `games?key=${process.env.REACT_APP_RAWG_API_KEY}`,
+      query: ({ordering}) => `games?ordering=${ordering}&key=${process.env.REACT_APP_RAWG_API_KEY}`,
     }),
     GameById: builder.query({
       query: (id) => `games/${id}?key=${process.env.REACT_APP_RAWG_API_KEY}`,

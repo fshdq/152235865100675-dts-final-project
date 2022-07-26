@@ -3,7 +3,9 @@ import GameItem from "./GameItem";
 import { useGamesQuery } from "../services/rawgApi";
 
 const GameList = () => {
-  const { data, error, isLoading } = useGamesQuery();
+  const { data, error, isLoading } = useGamesQuery({
+    ordering: "released",
+  });
 
   return (
     <>
