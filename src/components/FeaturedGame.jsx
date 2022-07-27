@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import GameItemMini from "./GameItemMini";
 import FeaturedGameImage from "./FeaturedGameImage";
 import { usePopularGamesQuery } from "../services/rawgApi";
@@ -16,7 +17,9 @@ const GameList = () => {
         ) : isLoading ? (
           <div>Loading...</div>
         ) : (
-          <FeaturedGameImage featuredGame={data?.results?.[0]} />
+          <Link to={`/game/details/${data?.results?.[0].id}`}>
+            <FeaturedGameImage featuredGame={data?.results?.[0]} />
+          </Link>
         )}
       </div>
       <div className="w-4/12 flex flex-col max-w-sm gap-y-2">
@@ -27,7 +30,9 @@ const GameList = () => {
         ) : (
           data?.results?.map(
             (gameItem, index) =>
-              index >= 1 && <GameItemMini key={gameItem.id} gameItem={gameItem} />
+              index >= 1 && (
+                <GameItemMini key={gameItem.id} gameItem={gameItem} />
+              )
           )
         )}
       </div>

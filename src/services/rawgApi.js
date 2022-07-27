@@ -11,13 +11,16 @@ export const rawgAPI = createApi({
       query: () => `games?key=${process.env.REACT_APP_RAWG_API_KEY}`,
     }),
     GameById: builder.query({
-      query: (id) => `games/${id}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
+      query: ({id}) => `games/${id}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
+    }),
+    GameScreenshotById: builder.query({
+      query: ({id}) => `games/${id}/screenshots?key=${process.env.REACT_APP_RAWG_API_KEY}`,
     }),
     Genres: builder.query({
       query: () => `genres?key=${process.env.REACT_APP_RAWG_API_KEY}`,
     }),
     GenreById: builder.query({
-      query: (id) => `genres/${id}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
+      query: ({id}) => `genres/${id}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
     }),
     PopularGames: builder.query({
       query: ({page_size}) => `games?dates=2021-01-01,2021-12-31&ordering=-added&page_size=${page_size}&key=${process.env.REACT_APP_RAWG_API_KEY}`,
@@ -31,4 +34,5 @@ export const {
   useGenresQuery,
   useGenreByIdQuery,
   usePopularGamesQuery,
+  useGameScreenshotByIdQuery,
 } = rawgAPI;
