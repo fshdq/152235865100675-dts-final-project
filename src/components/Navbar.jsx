@@ -63,7 +63,7 @@ const Navbar = () => {
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 <NavLink link="/" name="Home" />
-                <NavLink link="/all-games" name="All Games" />
+                <NavLink link="/browse" name="Browse Game" />
                 <NavLink link="/reviews" name="Reviews" />
               </div>
             </div>

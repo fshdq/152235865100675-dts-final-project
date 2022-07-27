@@ -1,16 +1,16 @@
 import React from "react";
-import GameItem from "./GameItem";
+import GameItemMini from "./GameItemMini";
 import FeaturedGameImage from "./FeaturedGameImage";
 import { usePopularGamesQuery } from "../services/rawgApi";
 
 const GameList = () => {
   const { data, error, isLoading } = usePopularGamesQuery({
-    page_size: 5,
+    page_size: 8,
   });
 
   return (
-    <>
-      <div id="featuredImage">
+    <div className="flex flex-row gap-x-4">
+      <div id="featuredImage" className="w-8/12">
         {error ? (
           <div>Error: {error.message}</div>
         ) : isLoading ? (
@@ -19,7 +19,7 @@ const GameList = () => {
           <FeaturedGameImage featuredGame={data?.results?.[0]} />
         )}
       </div>
-      <div className="grid max-w-lg gap-8 mx-auto mt-12 lg:grid-cols-2 lg:max-w-none">
+      <div className="w-4/12 flex flex-col max-w-sm gap-y-2">
         {error ? (
           <div>Error!</div>
         ) : isLoading ? (
@@ -27,11 +27,11 @@ const GameList = () => {
         ) : (
           data?.results?.map(
             (gameItem, index) =>
-              index >= 1 && <GameItem key={gameItem.id} gameItem={gameItem} />
+              index >= 1 && <GameItemMini key={gameItem.id} gameItem={gameItem} />
           )
         )}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import GameList from "../components/GameList";
+import GameList from "../components/FeaturedGame";
 
 const Home = () => {
   return (

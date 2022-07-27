@@ -4,11 +4,11 @@ import { PlusCircleIcon } from "@heroicons/react/solid";
 const FeaturedGameImage = ({ featuredGame }) => {
   return (
     <>
-      <div className="relative w-full h-full rounded-2xl">
+      <div className="relative h-full rounded-2xl">
         <div className="rounded-2xl absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 md:from-black/40 to-transparent"></div>
-        <div class="md:w-5/6">
+        <div className="h-full">
           <img
-            className="bg-cover bg-center rounded-2xl"
+            className="h-full object-cover rounded-2xl"
             loading="lazy"
             src={featuredGame.background_image}
             alt={featuredGame.name}
@@ -16,8 +16,12 @@ const FeaturedGameImage = ({ featuredGame }) => {
         </div>
 
         <div className="absolute bottom-8 left-5 md:left-8 text-sm  md:font-bold w-[80%] md:w-[40%]">
-          <div className="md:text-shadow mb-1.5 font-bold uppercase text-xxs md:text-xs">
-            Status
+          <div className="md:text-shadow mb-1.5 uppercase md:text-xs">
+            {featuredGame.genres?.map((genre) => (
+              <span key={genre.id} className="inline-block mr-1">
+                {genre.name} &middot;
+              </span>
+            ))}
           </div>
           <p className="font-bold md:text-3xl md:text-shadow">
             {featuredGame.name}
