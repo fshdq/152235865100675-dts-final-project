@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { PlusCircleIcon } from "@heroicons/react/solid";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -74,9 +75,21 @@ const GameDetails = () => {
               </Swiper>
             </div>
             <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-              <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl md:text-6xl">
-                {data?.name}
-              </h1>
+              <div className="flex flex-row justify-between">
+                <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl md:text-6xl">
+                  {data?.name}
+                </h1>
+                <button
+                  type="button"
+                  className="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-white bg-transparent hover:bg-gray-200 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  <PlusCircleIcon
+                    className="-ml-1 mr-3 h-5 w-5"
+                    aria-hidden="true"
+                  />
+                  Add to Wishlist
+                </button>
+              </div>
               <h3 className="text-base font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-xl">
                 {data?.publishers?.map((publisher) => (
                   <span className="ml-2" key={publisher.id}>
