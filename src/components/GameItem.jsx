@@ -13,7 +13,7 @@ const GameItem = ({ gameItem }) => {
           alt=""
         />
 
-        <div className="p-6">
+        <div className="space-y-3 p-6">
           <h5 className="text-xl font-bold">{gameItem.name}</h5>
 
           <div className="grid gap-2 grid-cols-4">
