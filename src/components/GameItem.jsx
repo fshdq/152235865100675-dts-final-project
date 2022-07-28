@@ -17,7 +17,7 @@ const GameItem = ({ gameItem }) => {
           <h5 className="text-xl font-bold">{gameItem.name}</h5>
 
           <div className="grid gap-2 grid-cols-4">
-            {gameItem.platforms?.map((platform) => (
+            {gameItem.parent_platforms?.map((platform) => (
               <span
                 key={platform.platform.id}
                 className="flex justify-center h-8 bg-black p-2 rounded-full"
