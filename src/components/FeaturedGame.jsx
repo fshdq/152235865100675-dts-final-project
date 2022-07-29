@@ -31,8 +31,10 @@ const GameList = () => {
           data?.results?.map(
             (gameItem, index) =>
               index >= 1 && (
-              <GameItemMini key={gameItem.id} gameItem={gameItem} />
-            )
+                <Link to={`/game/details/${gameItem.id}`}>
+                  <GameItemMini key={gameItem.id} gameItem={gameItem} />
+                </Link>
+              )
           )
         )}
       </div>
