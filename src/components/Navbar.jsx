@@ -4,7 +4,7 @@ import NavLink from "./NavLink";
 const Navbar = () => {
   return (
     <>
-      <nav className="bg-gray-900">
+      <nav className="bg-zinc-800">
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex justify-between h-16">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -70,14 +70,14 @@ const Navbar = () => {
             <div className="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="sm:gap-4 sm:flex">
                 <a
-                  className="block px-5 py-2.5 text-sm font-medium text-white bg-teal-600 hover:bg-teal-500 transition rounded-md shadow"
+                  className="block px-5 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 transition rounded-md shadow"
                   href="/"
                 >
                   Login
                 </a>
 
                 <a
-                  className="hidden sm:block px-5 py-2.5 text-sm font-medium text-white bg-gray-800 rounded-md hover:text-white/75 transition"
+                  className="hidden sm:block px-5 py-2.5 text-sm font-medium text-white bg-zinc-500 rounded-md hover:text-white/75 transition"
                   href="/"
                 >
                   Register
