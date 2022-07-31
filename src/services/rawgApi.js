@@ -10,11 +10,11 @@ export const rawgAPI = createApi({
     Games: builder.query({
       query: () => `games?key=${process.env.REACT_APP_RAWG_API_KEY}`,
     }),
-    GameById: builder.query({
-      query: ({id}) => `games/${id}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
+    GameBySlug: builder.query({
+      query: ({slug}) => `games/${slug}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
     }),
     GameScreenshotById: builder.query({
-      query: ({id}) => `games/${id}/screenshots?key=${process.env.REACT_APP_RAWG_API_KEY}`,
+      query: ({slug}) => `games/${slug}/screenshots?key=${process.env.REACT_APP_RAWG_API_KEY}`,
     }),
     Genres: builder.query({
       query: () => `genres?key=${process.env.REACT_APP_RAWG_API_KEY}`,
@@ -23,16 +23,24 @@ export const rawgAPI = createApi({
       query: ({id}) => `genres/${id}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
     }),
     PopularGames: builder.query({
-      query: ({page_size}) => `games?dates=2021-01-01,2021-12-31&ordering=-added&page_size=${page_size}&key=${process.env.REACT_APP_RAWG_API_KEY}`,
+      query: ({page_size, currentYear, currentDate}) => `games?dates=${currentYear},${currentDate}&ordering=-added&page_size=${page_size}&key=${process.env.REACT_APP_RAWG_API_KEY}`,
+    }),
+    NewGames: builder.query({
+      query: ({page_size, lastYear, currentDate}) => `games?dates=${lastYear},${currentDate}&ordering=-released&page_size=${page_size}&key=${process.env.REACT_APP_RAWG_API_KEY}`,
+    }),
+    UpcomingGames: builder.query({
+      query: ({page_size, currentDate,nextYear}) => `games?dates=${currentDate},${nextYear}&ordering=-released&page_size=${page_size}&key=${process.env.REACT_APP_RAWG_API_KEY}`,
     }),
   }),
 });
 
 export const {
   useGamesQuery,
-  useGameByIdQuery,
+  useGameBySlugQuery,
   useGenresQuery,
   useGenreByIdQuery,
   usePopularGamesQuery,
   useGameScreenshotByIdQuery,
+  useNewGamesQuery,
+  useUpcomingGamesQuery,
 } = rawgAPI;

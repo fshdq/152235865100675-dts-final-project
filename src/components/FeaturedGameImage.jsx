@@ -15,7 +15,7 @@ const FeaturedGameImage = ({ featuredGame }) => {
           />
         </div>
 
-        <div className="absolute bottom-8 left-5 md:left-8 text-sm  md:font-bold w-[80%] md:w-[40%]">
+        <div className="absolute bottom-8 left-5 md:left-8 text-sm  md:font-bold">
           <div className="md:text-shadow mb-1.5 uppercase md:text-xs">
             {featuredGame.genres?.map((genre) => (
               <span key={genre.id} className="inline-block mr-1">
@@ -26,11 +26,7 @@ const FeaturedGameImage = ({ featuredGame }) => {
           <p className="font-bold md:text-3xl md:text-shadow">
             {featuredGame.name}
           </p>
-          <div className="flex flex-col gap-1 mt-6 md:text-shadow md:flex-row">
-            <span className="">Starting at</span>
-            <span>IDR price</span>
-          </div>
-          <div className="items-center hidden h-12 gap-2 mt-3 md:flex">
+          <div className="items-center hidden gap-2 mt-3 md:flex md:flex-row md:flex-wrap">
             <button
               type="button"
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-gray-600 bg-white hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

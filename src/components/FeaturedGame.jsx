@@ -5,8 +5,23 @@ import FeaturedGameImage from "./FeaturedGameImage";
 import { usePopularGamesQuery } from "../services/rawgApi";
 
 const GameList = () => {
+  const getCurrentDate = (separator) => {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    return `${year}${separator}${
+      month < 10 ? `0${month}` : `${month}`
+    }${separator}${date}`;
+  };
+  const currentDate = getCurrentDate("-");
+  const currentYear = new Date().getFullYear();
+  const firstoftheyear = `${currentYear}-01-01`;
   const { data, error, isLoading } = usePopularGamesQuery({
     page_size: 8,
+    currentYear: firstoftheyear,
+    currentDate: currentDate,
   });
 
   return (
@@ -31,7 +46,7 @@ const GameList = () => {
           data?.results?.map(
             (gameItem, index) =>
               index >= 1 && (
-                <Link to={`/game/details/${gameItem.id}`}>
+                <Link to={`/game/${gameItem.slug}`}>
                   <GameItemMini key={gameItem.id} gameItem={gameItem} />
                 </Link>
               )

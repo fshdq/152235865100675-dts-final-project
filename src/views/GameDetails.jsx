@@ -15,14 +15,14 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
 
 import {
-  useGameByIdQuery,
+  useGameBySlugQuery,
   useGameScreenshotByIdQuery,
 } from "../services/rawgApi";
 
 const GameDetails = () => {
-  let { gameId } = useParams();
-  const { data, error, isLoading } = useGameByIdQuery({
-    id: gameId,
+  let { slug } = useParams();
+  const { data, error, isLoading } = useGameBySlugQuery({
+    slug: slug,
   });
 
   const {
@@ -30,9 +30,9 @@ const GameDetails = () => {
     error: screenshotError,
     isLoading: screenshotIsLoading,
   } = useGameScreenshotByIdQuery({
-    id: gameId,
+    slug: slug,
   });
-  console.log("gameid= ", gameId);
+  console.log("gameid= ", slug);
   return (
     <>
       {error ? (
@@ -87,27 +87,27 @@ const GameDetails = () => {
 
                   {/* Body */}
                   <div className="space-y-6 py-4">
-                    <div class="block">
-                      <h3 class="text-lg font-bold mb-2 uppercase text-white">
+                    <div className="block">
+                      <h3 className="text-lg font-bold mb-2 uppercase text-white">
                         About
                       </h3>
-                      <div class="leading-6 text-white">
+                      <div className="leading-6 text-white">
                         {data?.description_raw}
                       </div>
                     </div>
-                    <div class="block">
-                      <h3 class="text-lg font-bold mb-2 uppercase text-white">
+                    <div className="block">
+                      <h3 className="text-lg font-bold mb-2 uppercase text-white">
                         About
                       </h3>
-                      <div class="leading-6 text-white">{data?.metacritic}</div>
+                      <div className="leading-6 text-white">{data?.metacritic}</div>
                     </div>
                   </div>
                 </div>
                 {/* End main area */}
               </main>
-              <aside className="hidden relative xl:flex xl:flex-col flex-shrink-0 w-96 border-l border-gray-200 overflow-y-auto">
+              <aside className="hidden relative xl:flex xl:flex-col flex-shrink-0 w-96 overflow-y-auto">
                 {/* Start secondary column (hidden on smaller screens) */}
-                <div className="py-8 px-6 rounded flex flex-col items-center">
+                <div className="py-8 px-6 rounded flex flex-col items-center border border-zinc-600">
                   <div className="py-4 sm:py-5 flex flex-row w-full justify-between sm:gap-4">
                     <dt className="text-sm font-medium text-zinc-500">
                       Platform
@@ -137,12 +137,12 @@ const GameDetails = () => {
                       {data?.stores?.map((store) => (
                         <button
                           type="button"
-                          class="group inline-flex justify-center items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white hover:text-zinc-600 bg-zinc-600 hover:bg-white focus:outline-none"
+                          className="group inline-flex justify-center items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white hover:text-zinc-600 bg-zinc-600 hover:bg-white focus:outline-none"
                         >
-                          <use
+                          {/* <use
                             className="h-6 w-6 text-black"
                             xlinkHref={require(`../assets/stores/${store.store.name}.svg#img`)}
-                          ></use>
+                          ></use> */}
                           {/* <img
                         src={require(`../assets/stores/${store.store.name}.svg`)}
                         alt={store.store.name}
