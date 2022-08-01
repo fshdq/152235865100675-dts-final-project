@@ -11,9 +11,15 @@ const GameList = () => {
     let month = newDate.getMonth() + 1;
     let year = newDate.getFullYear();
 
-    return `${year}${separator}${
-      month < 10 ? `0${month}` : `${month}`
-    }${separator}${date}`;
+    if (month < 10) {
+      month = `0${month}`;
+    }
+
+    if (date < 10) {
+      date = `0${date}`;
+    }
+
+    return `${year}${separator}${month}${separator}${date}`;
   };
   const currentDate = getCurrentDate("-");
   const currentYear = new Date().getFullYear();
@@ -32,7 +38,7 @@ const GameList = () => {
         ) : isLoading ? (
           <div>Loading...</div>
         ) : (
-          <Link to={`/game/details/${data?.results?.[0].id}`}>
+          <Link to={`/game/${data?.results?.[0].slug}`}>
             <FeaturedGameImage featuredGame={data?.results?.[0]} />
           </Link>
         )}

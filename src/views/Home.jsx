@@ -11,9 +11,15 @@ const Home = () => {
     let month = newDate.getMonth() + 1;
     let year = newDate.getFullYear();
 
-    return `${year}${separator}${
-      month < 10 ? `0${month}` : `${month}`
-    }${separator}${date}`;
+    if (month < 10) {
+      month = `0${month}`;
+    }
+
+    if (date < 10) {
+      date = `0${date}`;
+    }
+
+    return `${year}${separator}${month}${separator}${date}`;
   };
 
   const currentDate = getCurrentDate("-");
@@ -43,6 +49,14 @@ const Home = () => {
             <h2 className="text-2xl font-bold md:text-5xl">Best Of The Year</h2>
           </div>
           <FeaturedGame />
+
+          {/* Top Week */}
+          <GameSlider
+            heading="Top Week"
+            data={NewReleaseData}
+            error={error}
+            isLoading={isLoading}
+          />
 
           {/* New Release */}
           <GameSlider

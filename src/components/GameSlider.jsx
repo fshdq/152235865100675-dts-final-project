@@ -39,7 +39,7 @@ const GameSlider = (props) => {
               .filter((game) => game.slug !== "millies-adventure")
               .map((game) => (
                 <SwiperSlide key={game.id}>
-                  <Link to={`/game/${game.slug}`}>
+                  <Link to={`/game/${game.slug}`} className="w-full">
                     <GameItem key={game.id} gameItem={game} />
                   </Link>
                 </SwiperSlide>

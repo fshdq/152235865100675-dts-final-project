@@ -6,12 +6,17 @@ export const rawgAPI = createApi({
     baseUrl: "https://api.rawg.io/api/",
   }),
 
+  tagTypes: ['Genre', 'Game', 'Platform'],
   endpoints: (builder) => ({
     Games: builder.query({
       query: () => `games?key=${process.env.REACT_APP_RAWG_API_KEY}`,
     }),
     GameBySlug: builder.query({
       query: ({slug}) => `games/${slug}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
+    }),
+    GameByGenre: builder.query({
+      query: ({genre_slug}) => `games?genres=${genre_slug}&key=${process.env.REACT_APP_RAWG_API_KEY}`,
+      providesTags: ['Game'],
     }),
     GameScreenshotById: builder.query({
       query: ({slug}) => `games/${slug}/screenshots?key=${process.env.REACT_APP_RAWG_API_KEY}`,
@@ -43,4 +48,5 @@ export const {
   useGameScreenshotByIdQuery,
   useNewGamesQuery,
   useUpcomingGamesQuery,
+  useGameByGenreQuery,
 } = rawgAPI;
