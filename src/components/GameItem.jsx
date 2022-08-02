@@ -14,10 +14,10 @@ const GameItem = ({ gameItem }) => {
           alt=""
         />
 
-        <div className="py-3 px-4 md:p-6 relative space-y-2 sm:space-y-4">
+        <div className="py-3 px-4 md:p-6 relative space-y-2">
           <h3
             role="button"
-            className="text-heading text-sm sm:text-md font-semibold truncate mb-2"
+            className="text-heading text-sm text-white sm:text-md font-semibold truncate mb-2"
           >
             {gameItem.name}
           </h3>
@@ -40,7 +40,7 @@ const GameItem = ({ gameItem }) => {
           </div>
           <button
             type="button"
-            className="inline-flex w-full justify-center transition-colors duration-300 items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-zinc-600 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex w-full justify-center transition-colors duration-300 items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-zinc-600 hover:bg-zinc-700 focus:outline-none"
           >
             <ShoppingCartIcon className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
             Add to list

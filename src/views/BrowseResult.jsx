@@ -6,7 +6,7 @@ import GameItem from "../components/GameItem";
 
 const BrowseResult = () => {
   let { genre_slug } = useParams();
-  const { data, error, isLoading } = useGameByGenreQuery({
+  const { data, error, isLoading, isFetching } = useGameByGenreQuery({
     genre_slug: genre_slug,
   });
 
@@ -17,6 +17,8 @@ const BrowseResult = () => {
           <div>Error: {error.message}</div>
         ) : isLoading ? (
           <div>Loading...</div>
+        ) : isFetching ? (
+          <div>Fetching...</div>
         ) : (
           data.results.map((game) => <GameItem key={game.id} gameItem={game} />)
         )}
