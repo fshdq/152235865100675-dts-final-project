@@ -1,6 +1,7 @@
 import React from "react";
 import GameItem from "./GameItem";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
@@ -33,7 +34,7 @@ const GameSlider = (props) => {
           {props.error ? (
             <div>Error: {props.error.message}</div>
           ) : props.isLoading ? (
-            <div>Loading...</div>
+            <Loading />
           ) : (
             props.data.results
               .filter((game) => game.slug !== "millies-adventure")

@@ -16,7 +16,7 @@ const GameItem = ({ gameItem }) => {
   // const moviesData = movies.slice(0, 10);
   const saveGame = async () => {
     if (user?.email) {
-      setSaved(true);
+      // setSaved(true);
       await updateDoc(
         game_id,
         {

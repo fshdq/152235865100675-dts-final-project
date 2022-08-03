@@ -4,6 +4,7 @@ import { useGenresQuery, useSearchQuery } from "../services/rawgApi";
 import GameItem from "../components/GameItem";
 import { DebounceInput } from "react-debounce-input";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
 
 import { Disclosure, Listbox, Transition } from "@headlessui/react";
 import { ChevronUpIcon, CheckIcon, SelectorIcon } from "@heroicons/react/solid";
@@ -137,7 +138,7 @@ const Browse = () => {
               {searchError ? (
                 <div>Error...</div>
               ) : searchLoading ? (
-                <div>Loading...</div>
+                <Loading />
               ) : searchFetching ? (
                 <div className="text-white text-3xl">Fetching...</div>
               ) : (
@@ -200,7 +201,7 @@ const Browse = () => {
                       {error ? (
                         <div>Error: {error.message}</div>
                       ) : isLoading ? (
-                        <div>Loading...</div>
+                        <Loading />
                       ) : (
                         <Disclosure.Panel>
                           <div className="flex flex-col pl-4 border-l-2 border-zinc-800">

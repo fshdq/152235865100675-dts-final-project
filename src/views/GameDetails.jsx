@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import HeaderDetail from "../components/HeaderDetail";
 import { BookmarkIcon } from "@heroicons/react/solid";
+import Loading from "../components/Loading";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -34,13 +35,13 @@ const GameDetails = () => {
   });
   console.log("gameid= ", slug);
   return (
-    <>
+    <div className="max-w-7xl flex-col mx-auto px-6 lg:px-8 my-10">
       {error ? (
         <div>Error: {error.message}</div>
       ) : isLoading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : (
-        <div className="max-w-7xl flex-col mx-auto px-6 lg:px-8 my-10">
+        <>
           <div className="my-6">
             <HeaderDetail data={data} />
           </div>
@@ -69,7 +70,7 @@ const GameDetails = () => {
                         {screenshotError ? (
                           <div>Error: {screenshotError.message}</div>
                         ) : screenshotIsLoading ? (
-                          <div>Loading...</div>
+                          <Loading />
                         ) : (
                           screenshotData?.results?.map((screenshot) => (
                             <SwiperSlide key={screenshot.id}>
@@ -208,9 +209,9 @@ const GameDetails = () => {
               </aside>
             </div>
           </div>
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 

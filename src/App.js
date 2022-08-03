@@ -14,6 +14,11 @@ import BrowseResult from "./views/BrowseResult";
 import GameDetails from "./views/GameDetails";
 import { AuthContextProvider } from "./context/AuthContext";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import Profile from "./views/Profile";
+import MyLibrary from "./views/MyLibrary";
+
 function App() {
   return (
     <>
@@ -29,6 +34,22 @@ function App() {
               <Route path=":genre_slug" element={<BrowseResult />} />
             </Route>
             <Route path="/game/:slug" element={<GameDetails />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/my-library"
+              element={
+                <ProtectedRoute>
+                  <MyLibrary />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         </Routes>
       </AuthContextProvider>

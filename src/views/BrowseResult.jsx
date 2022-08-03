@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useGameByGenreQuery } from "../services/rawgApi";
+import Loading from "../components/Loading";
 
 import GameItem from "../components/GameItem";
 
@@ -16,9 +17,9 @@ const BrowseResult = () => {
         {error ? (
           <div>Error: {error.message}</div>
         ) : isLoading ? (
-          <div>Loading...</div>
+          <Loading />
         ) : isFetching ? (
-          <div>Fetching...</div>
+          <Loading />
         ) : (
           data.results.map((game) => <GameItem key={game.id} gameItem={game} />)
         )}

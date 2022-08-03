@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import GameItemMini from "./GameItemMini";
 import FeaturedGameImage from "./FeaturedGameImage";
 import { usePopularGamesQuery } from "../services/rawgApi";
-
+import Loading from "./Loading";
 const GameList = () => {
   const getCurrentDate = (separator) => {
     let newDate = new Date();
@@ -36,18 +36,16 @@ const GameList = () => {
         {error ? (
           <div>Error: {error.message}</div>
         ) : isLoading ? (
-          <div>Loading...</div>
+          <Loading />
         ) : (
-          <Link to={`/game/${data?.results?.[0].slug}`}>
-            <FeaturedGameImage featuredGame={data?.results?.[0]} />
-          </Link>
+          <FeaturedGameImage featuredGame={data?.results?.[0]} />
         )}
       </div>
       <div className="w-4/12 flex flex-col max-w-sm gap-y-2">
         {error ? (
           <div>Error!</div>
         ) : isLoading ? (
-          <>Loading data dulu yah ...</>
+          <Loading />
         ) : (
           data?.results?.map(
             (gameItem, index) =>
