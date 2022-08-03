@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useGenresQuery, useSearchQuery } from "../services/rawgApi";
 import GameItem from "../components/GameItem";
 import { DebounceInput } from "react-debounce-input";
+import { Link } from "react-router-dom";
 
 import { Disclosure, Listbox, Transition } from "@headlessui/react";
 import { ChevronUpIcon, CheckIcon, SelectorIcon } from "@heroicons/react/solid";
@@ -141,7 +142,9 @@ const Browse = () => {
                 <div className="text-white text-3xl">Fetching...</div>
               ) : (
                 searchData?.results?.map((game) => (
-                  <GameItem key={game.id} gameItem={game} />
+                  <Link to={`/game/${game.slug}`}>
+                    <GameItem key={game.id} gameItem={game} />
+                  </Link>
                 ))
               )}
             </div>
