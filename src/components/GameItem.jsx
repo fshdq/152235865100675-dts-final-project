@@ -1,13 +1,12 @@
 import { React, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { BookmarkIcon, HeartIcon } from "@heroicons/react/solid";
+import { BookmarkIcon, HeartIcon, PlusIcon } from "@heroicons/react/solid";
 
 import { auth, db } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 const GameItem = ({ gameItem }) => {
-  const [setSaved] = useState([false]);
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
 
@@ -16,7 +15,6 @@ const GameItem = ({ gameItem }) => {
   // const moviesData = movies.slice(0, 10);
   const saveGame = async () => {
     if (user?.email) {
-      // setSaved(true);
       await updateDoc(
         game_id,
         {
@@ -24,7 +22,25 @@ const GameItem = ({ gameItem }) => {
             id: gameItem.id,
             name: gameItem.name,
             slug: gameItem.slug,
-            img: gameItem.background_image,
+            background_image: gameItem.background_image,
+          }),
+        },
+        console.log(gameItem.id)
+      );
+    } else {
+      navigate("/login");
+    }
+  };
+  const addList = async () => {
+    if (user?.email) {
+      await updateDoc(
+        game_id,
+        {
+          wishlists: arrayUnion({
+            id: gameItem.id,
+            name: gameItem.name,
+            slug: gameItem.slug,
+            background_image: gameItem.background_image,
           }),
         },
         console.log(gameItem.id)
@@ -86,8 +102,8 @@ const GameItem = ({ gameItem }) => {
             </Link>
           </h3>
           <div className="flex flex-row justify-between text-white items-center">
-            <dt className="text-sm font-medium">Genre</dt>
-            <dd className="flex flex-row gap-x-2 mt-1 text-sm sm:mt-0">
+            <dt className="text-sm font-medium">Platforms</dt>
+            <dd className="flex flex-wrap justify-end gap-x-2 mt-1 text-sm sm:mt-0">
               {gameItem?.parent_platforms?.map((platform) => (
                 <span
                   key={platform.platform.id}
@@ -102,14 +118,29 @@ const GameItem = ({ gameItem }) => {
               ))}
             </dd>
           </div>
-          <button
-            type="button"
-            onClick={saveGame}
-            className="inline-flex w-full justify-center transition-colors duration-300 items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-zinc-600 hover:bg-zinc-700 focus:outline-none"
-          >
-            <BookmarkIcon className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
-            Add to library
-          </button>
+          <div className="flex w-full gap-x-1">
+            <button
+              type="button"
+              onClick={saveGame}
+              className="inline-flex w-full justify-center transition-colors duration-300 items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-zinc-600 hover:bg-zinc-700 focus:outline-none"
+            >
+              <BookmarkIcon
+                className="h-4 w-4"
+                aria-hidden="true"
+              />
+              Add to library
+            </button>
+            <button
+              type="button"
+              onClick={addList}
+              className="flex flex-shrink justify-center transition-colors duration-300 items-center px-3 py-2 border border-zinc-600 shadow-sm text-sm leading-4 font-medium rounded-md text-white hover:text-zinc-600 hover:bg-white focus:outline-none"
+            >
+              <PlusIcon
+                className="h-4 w-4"
+                aria-hidden="true"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </>

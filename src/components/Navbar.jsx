@@ -83,7 +83,7 @@ const Navbar = () => {
             <div className="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               {user?.email ? (
                 <div className="flex sm:gap-x-4 items-center md:order-2 ">
-                  <NavLink link="/my-library" name="My library" />
+                  {/* <NavLink link="/my-library" name="My library" /> */}
                   <NavLink link="/profile" name="Profile" />
                   <button
                     onClick={handleLogout}

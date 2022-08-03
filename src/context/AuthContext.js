@@ -18,7 +18,7 @@ export function AuthContextProvider({ children }) {
     setDoc(doc(db, 'users', email), {
         savedGames: [],
         favorites: [],
-        whislist: [],
+        wishlists: [],
     })
   }
 

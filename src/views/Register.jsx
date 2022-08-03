@@ -4,9 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 
 const Register = () => {
-  const [error, setError] = useState("");
-  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const { signUp } = UserAuth();
   let navigate = useNavigate();
@@ -15,7 +14,7 @@ const Register = () => {
     e.preventDefault();
     setError("");
     try {
-      await signUp(email, password, fullName);
+      await signUp(email, password);
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -53,25 +52,6 @@ const Register = () => {
               action="#"
               method="POST"
             >
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-white"
-                >
-                  Full Name
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="fullName"
-                    name="fullName"
-                    type="text"
-                    autoComplete="fullName"
-                    required
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="bg-zinc-700 text-white border-zinc-700 block w-full pr-12 sm:text-sm rounded-md placeholder:text-zinc-500 focus:outline-none focus:ring-0 focus:border-zinc-700"
-                  />
-                </div>
-              </div>
               <div>
                 <label
                   htmlFor="email"

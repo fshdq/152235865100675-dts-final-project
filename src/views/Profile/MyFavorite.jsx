@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import GameItem from "../../components/GameItem";
+import SavedGame from "../../components/SavedGame";
 
 import { db, auth } from "../../firebase-config";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -20,11 +20,11 @@ const MyFavorite = () => {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {games?.length === 0 ? (
-        <div className="text-center">
+        <div className="text-center col-span-4">
           <h1 className="text-2xl font-bold text-white">No games you liked</h1>
         </div>
       ) : (
-        games?.map((game) => <GameItem key={game.id} gameItem={game} />)
+        games?.map((game) => <SavedGame key={game.id} gameItem={game} button_name="Favorite"/>)
       )}
     </div>
   );
