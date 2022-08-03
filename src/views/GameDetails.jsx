@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import HeaderDetail from "../components/HeaderDetail";
-import { BookmarkIcon } from "@heroicons/react/solid";
 import Loading from "../components/Loading";
 
 // Import Swiper React components
