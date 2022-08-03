@@ -2,16 +2,19 @@ import React, { useState, Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import { useGenresQuery, useSearchQuery } from "../services/rawgApi";
 import GameItem from "../components/GameItem";
+import { DebounceInput } from "react-debounce-input";
 
 import { Disclosure, Listbox, Transition } from "@headlessui/react";
 import { ChevronUpIcon, CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 
 const orderBy = [
-  { id: 1, name: "Name", value: "name" },
-  { id: 2, name: "Released", value: "released" },
-  { id: 3, name: "Added", value: "added" },
-  { id: 4, name: "Created", value: "created" },
-  { id: 5, name: "Update", value: "updated" },
+  { id: 1, name: "None", value: "" },
+  { id: 2, name: "Name", value: "name" },
+  { id: 3, name: "Released", value: "released" },
+  { id: 4, name: "Added", value: "added" },
+  { id: 5, name: "Created", value: "created" },
+  { id: 6, name: "Update", value: "updated" },
+  { id: 7, name: "Average Rating", value: "rating" },
 ];
 
 const Browse = () => {
@@ -19,11 +22,12 @@ const Browse = () => {
   const [isSelected, setSelected] = useState(orderBy[2]);
   const [isSearch, setIsSearch] = useState(null);
 
-  console.log("isSelected: ", isSelected.value)
+  console.log("isSelected: ", isSelected.value);
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
+
   const { data, error, isLoading } = useGenresQuery();
   const {
     data: searchData,
@@ -35,6 +39,7 @@ const Browse = () => {
     query: isSearch,
     ordering: isSelected.value,
   });
+
   return (
     <div className="max-w-[1760px] mx-auto sm:px-6 lg:px-8 my-10">
       <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
@@ -152,10 +157,18 @@ const Browse = () => {
               </button>
             </div>
             <div className="mt-1 relative flex items-center">
-              <input
+              {/* <input
                 type="text"
                 name="search"
                 id="search"
+                placeholder="Search"
+                value={isSearch}
+                onChange={(e) => setIsSearch(e.target.value)}
+                className="bg-zinc-800 text-white border-zinc-700 block w-full pr-12 sm:text-sm rounded-md placeholder:text-zinc-500 focus:outline-none focus:ring-0 focus:border-zinc-700"
+              /> */}
+              <DebounceInput
+                minLength={2}
+                debounceTimeout={300}
                 placeholder="Search"
                 value={isSearch}
                 onChange={(e) => setIsSearch(e.target.value)}

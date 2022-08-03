@@ -65,10 +65,6 @@ const Home = () => {
             error={error}
             isLoading={isLoading}
           />
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-10">
-            <div className="w-full">Top Release</div>
-            <div className="w-full">Coming Soon</div>
-          </div>
         </div>
       </div>
     </div>

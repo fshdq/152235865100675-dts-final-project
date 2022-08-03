@@ -85,6 +85,54 @@ const GameDetails = () => {
                     </div>
                   </div>
 
+                  <div className="lg:hidden py-8 px-6 rounded flex flex-col items-center border border-zinc-600">
+                    <div className="py-4 sm:py-5 flex flex-row w-full justify-between sm:gap-4">
+                      <dt className="text-sm font-medium text-zinc-500">
+                        Platform
+                      </dt>
+                      <dd className="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">
+                        <div className="flex gap-x-2 items-center text-sm text-gray-500">
+                          {data?.parent_platforms?.map((platform) => (
+                            <span
+                              key={platform.platform.id}
+                              className="flex justify-center h-8 bg-zinc-700 p-2 rounded-full"
+                            >
+                              <img
+                                src={require(`../assets/${platform.platform.id}.svg`)}
+                                alt={platform.platform.name}
+                                className="rounded text-gray-500"
+                              />
+                            </span>
+                          ))}
+                        </div>
+                      </dd>
+                    </div>
+                    <div className="flex flex-col w-full gap-y-2">
+                      <dt className="text-sm font-medium text-zinc-500">
+                        Where to buy
+                      </dt>
+                      <dl className="flex flex-col gap-y-2">
+                        {data?.stores?.map((store) => (
+                          <button
+                            type="button"
+                            className="group inline-flex justify-center items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white hover:text-zinc-600 bg-zinc-600 hover:bg-white focus:outline-none"
+                          >
+                            {/* <use
+                            className="h-6 w-6 text-black"
+                            xlinkHref={require(`../assets/stores/${store.store.name}.svg#img`)}
+                          ></use> */}
+                            {/* <img
+                        src={require(`../assets/stores/${store.store.name}.svg`)}
+                        alt={store.store.name}
+                        className="rounded-full h-8 w-8 text-white group-hover:text-black"
+                      /> */}
+                            <span className="ml-2">{store.store.name}</span>
+                          </button>
+                        ))}
+                      </dl>
+                    </div>
+                  </div>
+
                   {/* Body */}
                   <div className="space-y-6 py-4">
                     <div className="block">
@@ -97,15 +145,17 @@ const GameDetails = () => {
                     </div>
                     <div className="block">
                       <h3 className="text-lg font-bold mb-2 uppercase text-white">
-                        About
+                        Metacritics
                       </h3>
-                      <div className="leading-6 text-white">{data?.metacritic}</div>
+                      <div className="leading-6 text-white">
+                        {data?.metacritic}
+                      </div>
                     </div>
                   </div>
                 </div>
                 {/* End main area */}
               </main>
-              <aside className="hidden relative xl:flex xl:flex-col flex-shrink-0 w-96 overflow-y-auto">
+              <aside className="hidden relative lg:flex lg:flex-col flex-shrink-0 w-96 overflow-y-auto">
                 {/* Start secondary column (hidden on smaller screens) */}
                 <div className="py-8 px-6 rounded flex flex-col items-center border border-zinc-600">
                   <div className="py-4 sm:py-5 flex flex-row w-full justify-between sm:gap-4">
