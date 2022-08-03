@@ -1,108 +1,70 @@
 import React from "react";
+import FeaturedGame from "../components/FeaturedGame";
+import GameSlider from "../components/GameSlider";
+
+import { useNewGamesQuery, useUpcomingGamesQuery } from "../services/rawgApi";
 
 const Home = () => {
+  const getCurrentDate = (separator) => {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    if (month < 10) {
+      month = `0${month}`;
+    }
+
+    if (date < 10) {
+      date = `0${date}`;
+    }
+
+    return `${year}${separator}${month}${separator}${date}`;
+  };
+
+  const currentDate = getCurrentDate("-");
+  const currentYear = new Date().getFullYear();
+  const firstoftheyear = `${currentYear}-01-01`;
+
+  // New Release
+  const {
+    data: NewReleaseData,
+    error,
+    isLoading,
+  } = useNewGamesQuery({
+    page_size: 10,
+    lastYear: firstoftheyear,
+    currentDate: currentDate,
+  });
+
+  // Top Release
+
+  // Coming Soon
+
   return (
-    <div class="max-w-[1760px] mx-auto sm:px-6 lg:px-8 my-10">
+    <div className="max-w-[1760px] mx-auto sm:px-6 lg:px-8 my-10">
       <div className="py-16">
         <div className="px-6 text-white">
           <div className="mb-12 space-y-2">
-            <h2 className="text-2xl font-bold md:text-4xl">New and Popular</h2>
+            <h2 className="text-2xl font-bold md:text-5xl">Best Of The Year</h2>
           </div>
+          <FeaturedGame />
 
-          <div className="grid gap-4 lg:grid-cols-4">
-            <div className="block overflow-hidden rounded-lg shadow-sm bg-gray-900">
-              <img
-                className="object-cover w-full h-56"
-                src="https://www.hyperui.dev/photos/team-1.jpeg"
-                alt=""
-              />
+          {/* Top Week */}
+          <GameSlider
+            heading="Top Week"
+            data={NewReleaseData}
+            error={error}
+            isLoading={isLoading}
+          />
 
-              <div className="p-6">
-                <h5 className="text-xl font-bold">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </h5>
-
-                <p className="mt-2 text-sm text-gray-500">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-
-                <div className="inline-block pb-1 mt-4 font-medium text-blue-600 border-b border-blue-500 ">
-                  Find out more
-                  <span aria-hidden="true">&rarr;</span>
-                </div>
-              </div>
-            </div>
-            <div className="block overflow-hidden rounded-lg shadow-sm bg-gray-900">
-              <img
-                className="object-cover w-full h-56"
-                src="https://www.hyperui.dev/photos/team-1.jpeg"
-                alt=""
-              />
-
-              <div className="p-6">
-                <h5 className="text-xl font-bold">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </h5>
-
-                <p className="mt-2 text-sm text-gray-500">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-
-                <div className="inline-block pb-1 mt-4 font-medium text-blue-600 border-b border-blue-500 ">
-                  Find out more
-                  <span aria-hidden="true">&rarr;</span>
-                </div>
-              </div>
-            </div>
-            <div className="block overflow-hidden rounded-lg shadow-sm bg-gray-900">
-              <img
-                className="object-cover w-full h-56"
-                src="https://www.hyperui.dev/photos/team-1.jpeg"
-                alt=""
-              />
-
-              <div className="p-6">
-                <h5 className="text-xl font-bold">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </h5>
-
-                <p className="mt-2 text-sm text-gray-500">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-
-                <div className="inline-block pb-1 mt-4 font-medium text-blue-600 border-b border-blue-500 ">
-                  Find out more
-                  <span aria-hidden="true">&rarr;</span>
-                </div>
-              </div>
-            </div>
-            <div className="block overflow-hidden rounded-lg shadow-sm bg-gray-900">
-              <img
-                className="object-cover w-full h-56"
-                src="https://www.hyperui.dev/photos/team-1.jpeg"
-                alt=""
-              />
-
-              <div className="p-6">
-                <h5 className="text-xl font-bold">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </h5>
-
-                <p className="mt-2 text-sm text-gray-500">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-
-                <div className="inline-block pb-1 mt-4 font-medium text-blue-600 border-b border-blue-500 ">
-                  Find out more
-                  <span aria-hidden="true">&rarr;</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* New Release */}
+          <GameSlider
+            heading="New Releases"
+            data={NewReleaseData}
+            error={error}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </div>

@@ -1,10 +1,23 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 import NavLink from "./NavLink";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { user, logOut } = UserAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
-      <nav className="bg-gray-900">
+      <nav className="bg-zinc-800">
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex justify-between h-16">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -20,13 +33,13 @@ const Navbar = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="2"
+                  strokeWidth="2"
                   stroke="currentColor"
                   aria-hidden="true"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M4 6h16M4 12h16M4 18h16"
                   />
                 </svg>
@@ -35,13 +48,13 @@ const Navbar = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="2"
+                  strokeWidth="2"
                   stroke="currentColor"
                   aria-hidden="true"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
@@ -63,26 +76,39 @@ const Navbar = () => {
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 <NavLink link="/" name="Home" />
-                <NavLink link="/all-games" name="All Games" />
+                <NavLink link="/browse" name="Browse Game" />
                 <NavLink link="/reviews" name="Reviews" />
               </div>
             </div>
             <div className="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <div className="sm:gap-4 sm:flex">
-                <a
-                  className="block px-5 py-2.5 text-sm font-medium text-white bg-teal-600 hover:bg-teal-500 transition rounded-md shadow"
-                  href="/"
-                >
-                  Login
-                </a>
+              {user?.email ? (
+                <div className="flex sm:gap-x-4 items-center md:order-2 ">
+                  {/* <NavLink link="/my-library" name="My library" /> */}
+                  <NavLink link="/profile" name="Profile" />
+                  <button
+                    onClick={handleLogout}
+                    className="inline-flex flex-shrink-0 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="sm:gap-4 sm:flex">
+                  <Link
+                    className="block px-5 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 transition rounded-md shadow"
+                    to="/login"
+                  >
+                    Login
+                  </Link>
 
-                <a
-                  className="hidden sm:block px-5 py-2.5 text-sm font-medium text-white bg-gray-800 rounded-md hover:text-white/75 transition"
-                  href="/"
-                >
-                  Register
-                </a>
-              </div>
+                  <Link
+                    className="hidden sm:block px-5 py-2.5 text-sm font-medium text-white bg-zinc-500 rounded-md hover:text-white/75 transition"
+                    to="/register"
+                  >
+                    Register
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
