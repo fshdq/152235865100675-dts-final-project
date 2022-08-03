@@ -1,7 +1,20 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 import NavLink from "./NavLink";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { user, logOut } = UserAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <nav className="bg-zinc-800">
@@ -68,21 +81,35 @@ const Navbar = () => {
               </div>
             </div>
             <div className="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <div className="sm:gap-4 sm:flex">
-                <a
-                  className="block px-5 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 transition rounded-md shadow"
-                  href="/"
-                >
-                  Login
-                </a>
+              {user?.email ? (
+                <div className="flex sm:gap-x-4 items-center md:order-2 ">
+                  <button className="inline-flex flex-shrink-0 items-center px-4 py-2 border border-white hover:bg-gray-700 text-sm font-medium rounded-md shadow-sm text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    My Profile
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="inline-flex flex-shrink-0 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="sm:gap-4 sm:flex">
+                  <Link
+                    className="block px-5 py-2.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 transition rounded-md shadow"
+                    to="/login"
+                  >
+                    Login
+                  </Link>
 
-                <a
-                  className="hidden sm:block px-5 py-2.5 text-sm font-medium text-white bg-zinc-500 rounded-md hover:text-white/75 transition"
-                  href="/"
-                >
-                  Register
-                </a>
-              </div>
+                  <Link
+                    className="hidden sm:block px-5 py-2.5 text-sm font-medium text-white bg-zinc-500 rounded-md hover:text-white/75 transition"
+                    to="/register"
+                  >
+                    Register
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
