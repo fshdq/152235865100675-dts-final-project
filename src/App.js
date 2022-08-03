@@ -16,8 +16,10 @@ import { AuthContextProvider } from "./context/AuthContext";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
-import Profile from "./views/Profile";
-import MyLibrary from "./views/MyLibrary";
+import Profile from "./views/Profile/Profile";
+import MyLibrary from "./views/Profile/MyLibrary";
+import MyWishlist from "./views/Profile/MyWishlist";
+import MyFavorite from "./views/Profile/MyFavorite";
 
 function App() {
   return (
@@ -41,15 +43,32 @@ function App() {
                   <Profile />
                 </ProtectedRoute>
               }
-            />
-            <Route
-              path="/my-library"
-              element={
-                <ProtectedRoute>
-                  <MyLibrary />
-                </ProtectedRoute>
-              }
-            />
+            >
+              <Route
+                path="my-library"
+                element={
+                  <ProtectedRoute>
+                    <MyLibrary />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="my-wishlists"
+                element={
+                  <ProtectedRoute>
+                    <MyWishlist />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="my-favorites"
+                element={
+                  <ProtectedRoute>
+                    <MyFavorite />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
           </Route>
         </Routes>
       </AuthContextProvider>

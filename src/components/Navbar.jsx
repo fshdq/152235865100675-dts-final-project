@@ -84,6 +84,7 @@ const Navbar = () => {
               {user?.email ? (
                 <div className="flex sm:gap-x-4 items-center md:order-2 ">
                   <NavLink link="/my-library" name="My library" />
+                  <NavLink link="/profile" name="Profile" />
                   <button
                     onClick={handleLogout}
                     className="inline-flex flex-shrink-0 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"

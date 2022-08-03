@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { BookmarkIcon } from "@heroicons/react/solid";
+import { BookmarkIcon, HeartIcon } from "@heroicons/react/solid";
 
 import { auth, db } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -23,7 +23,27 @@ const GameItem = ({ gameItem }) => {
           savedGames: arrayUnion({
             id: gameItem.id,
             name: gameItem.name,
+            slug: gameItem.slug,
             img: gameItem.background_image,
+          }),
+        },
+        console.log(gameItem.id)
+      );
+    } else {
+      navigate("/login");
+    }
+  };
+  const favoriteGame = async () => {
+    if (user?.email) {
+      // setSaved(true);
+      await updateDoc(
+        game_id,
+        {
+          favorites: arrayUnion({
+            id: gameItem.id,
+            name: gameItem.name,
+            slug: gameItem.slug,
+            background_image: gameItem.background_image,
           }),
         },
         console.log(gameItem.id)
@@ -38,16 +58,27 @@ const GameItem = ({ gameItem }) => {
         key={gameItem.id}
         className="block overflow-hidden rounded-lg shadow-sm bg-zinc-800"
       >
-        <img
-          className="object-cover w-full h-56"
-          src={gameItem.background_image}
-          alt=""
-        />
+        <div className="relative">
+          <div className="absolute opacity-0 p-1 hover:opacity-100 top-0 right-0 transition-opacity">
+            <button
+              type="button"
+              onClick={favoriteGame}
+              className="inline-flex items-center p-1 border border-transparent rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+              <HeartIcon className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
+          <img
+            className="object-cover w-full h-56"
+            src={gameItem.background_image}
+            alt=""
+          />
+        </div>
 
         <div className="py-3 px-4 md:p-6 relative space-y-2">
           <h3
             role="button"
-            className="text-heading text-sm text-white hover:text-teal-500 sm:text-md font-semibold truncate mb-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+            className="text-heading text-sm text-white hover:text-teal-500 sm:text-md font-semibold truncate mb-2 transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
           >
             <Link to={`/game/${gameItem.slug}`} className="w-full">
               {" "}
