@@ -20,7 +20,7 @@ const orderBy = [
 ];
 
 const Browse = () => {
-  const [isFilterSelected, setisFilterSelected] = useState(false);
+  const [isFilterSelected] = useState(false);
   const [isSelected, setSelected] = useState(orderBy[2]);
   const [isSearch, setIsSearch] = useState(null);
 
@@ -36,7 +36,6 @@ const Browse = () => {
     error: searchError,
     isLoading: searchLoading,
     isFetching: searchFetching,
-    refetch,
   } = useSearchQuery({
     query: isSearch,
     ordering: isSelected.value,

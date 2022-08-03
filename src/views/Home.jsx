@@ -2,7 +2,7 @@ import React from "react";
 import FeaturedGame from "../components/FeaturedGame";
 import GameSlider from "../components/GameSlider";
 
-import { useNewGamesQuery, useUpcomingGamesQuery } from "../services/rawgApi";
+import { useNewGamesQuery } from "../services/rawgApi";
 
 const Home = () => {
   const getCurrentDate = (separator) => {

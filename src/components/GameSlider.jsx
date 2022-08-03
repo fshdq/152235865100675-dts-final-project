@@ -1,6 +1,5 @@
 import React from "react";
 import GameItem from "./GameItem";
-import { Link } from "react-router-dom";
 import Loading from "./Loading";
 
 import { Swiper, SwiperSlide } from "swiper/react";

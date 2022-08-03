@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { auth, db } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -6,7 +6,6 @@ import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
 const FeaturedGameImage = ({ featuredGame }) => {
-  const [setSaved] = useState([false]);
   const [user] = useAuthState(auth);
 
   const gameId = doc(db, "users", `${user?.email}`);
