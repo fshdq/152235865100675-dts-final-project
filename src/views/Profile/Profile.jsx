@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 
 const Profile = () => {
   const tabs = [
@@ -7,9 +7,7 @@ const Profile = () => {
     { name: "My Wishlist", href: "/my-wishlists", current: false },
     { name: "My Library", href: "/my-library", current: true },
   ];
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
+
   return (
     <div className="max-w-7xl mx-auto my-10 sm:px-6 lg:px-8">
       <div className="pb-5 border-b border-zinc-700">

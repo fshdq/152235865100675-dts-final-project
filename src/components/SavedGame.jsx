@@ -1,15 +1,14 @@
 import { React, useState } from "react";
 import { TrashIcon } from "@heroicons/react/solid";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { auth, db } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 const SavedGame = ({ gameItem, button_name }) => {
   const [games] = useState([]);
   const [user] = useAuthState(auth);
-  const navigate = useNavigate();
 
   const movieRef = doc(db, "users", `${user?.email}`);
 
