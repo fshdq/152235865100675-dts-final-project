@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { auth, db } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { doc, updateDoc, deleteField } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 const SavedGame = ({ gameItem, button_name }) => {
   const [games] = useState([]);
