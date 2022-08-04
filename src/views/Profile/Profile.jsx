@@ -1,7 +1,10 @@
 import React from "react";
 import { Outlet, NavLink } from "react-router-dom";
+import { auth } from "../../firebase-config";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Profile = () => {
+  const [user] = useAuthState(auth);
   const tabs = [
     { name: "My Favorite Games", href: "/my-favorites", current: false },
     { name: "My Wishlist", href: "/my-wishlists", current: false },
@@ -11,7 +14,7 @@ const Profile = () => {
   return (
     <div className="max-w-7xl mx-auto my-10 sm:px-6 lg:px-8">
       <div className="pb-5 border-b border-zinc-700">
-        <h3 className="text-4xl leading-6 font-bold text-white">Hello</h3>
+        <h3 className="text-4xl leading-6 font-bold text-white">Hello, {user?.email}</h3>
       </div>
       <div>
         <div className="sm:hidden">

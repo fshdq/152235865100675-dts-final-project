@@ -20,6 +20,10 @@ import Profile from "./views/Profile/Profile";
 import MyLibrary from "./views/Profile/MyLibrary";
 import MyWishlist from "./views/Profile/MyWishlist";
 import MyFavorite from "./views/Profile/MyFavorite";
+import Genres from "./views/Genres/Genres";
+import GenreResult from "./views/Genres/GenreResult";
+import Platforms from "./views/Platforms/Platforms";
+import PlatformResult from "./views/Platforms/PlatformResult";
 
 function App() {
   return (
@@ -32,9 +36,15 @@ function App() {
           </Route>
           <Route element={<WithNav />}>
             <Route path="/" element={<Home />} />
-            <Route path="/browse" element={<Browse />}>
-              <Route path=":genre_slug" element={<BrowseResult />} />
-            </Route>
+            <Route path="/browse" element={<Browse />} />
+            <Route path="/browse/result/:slug" element={<BrowseResult />} />
+
+            <Route path="/genres" element={<Genres />} />
+            <Route path="/genres/:id" element={<GenreResult />} />
+            
+            <Route path="/platforms" element={<Platforms />} />
+            <Route path="/platforms/:slug" element={<PlatformResult />} />
+            
             <Route path="/game/:slug" element={<GameDetails />} />
             <Route
               path="/profile"

@@ -13,38 +13,93 @@ const GameItem = ({ gameItem }) => {
   const game_id = doc(db, "users", `${user?.email}`);
 
   // const moviesData = movies.slice(0, 10);
+  // const Alert = () => {
+  //   <div
+  //     id="toast-success"
+  //     class="flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+  //     role="alert"
+  //   >
+  //     <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+  //       <svg
+  //         aria-hidden="true"
+  //         class="w-5 h-5"
+  //         fill="currentColor"
+  //         viewBox="0 0 20 20"
+  //         xmlns="http://www.w3.org/2000/svg"
+  //       >
+  //         <path
+  //           fillRule="evenodd"
+  //           d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+  //           clipRule="evenodd"
+  //         ></path>
+  //       </svg>
+  //       <span class="sr-only">Check icon</span>
+  //     </div>
+  //     <div class="ml-3 text-sm font-normal">Item moved successfully.</div>
+  //     <button
+  //       type="button"
+  //       class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+  //       data-dismiss-target="#toast-success"
+  //       aria-label="Close"
+  //     >
+  //       <span class="sr-only">Close</span>
+  //       <svg
+  //         aria-hidden="true"
+  //         class="w-5 h-5"
+  //         fill="currentColor"
+  //         viewBox="0 0 20 20"
+  //         xmlns="http://www.w3.org/2000/svg"
+  //       >
+  //         <path
+  //           fillRule="evenodd"
+  //           d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+  //           clipRule="evenodd"
+  //         ></path>
+  //       </svg>
+  //     </button>
+  //   </div>;
+  // };
   const saveGame = async () => {
     if (user?.email) {
-      await updateDoc(
-        game_id,
-        {
-          savedGames: arrayUnion({
-            id: gameItem.id,
-            name: gameItem.name,
-            slug: gameItem.slug,
-            background_image: gameItem.background_image,
-          }),
-        },
-        console.log(gameItem.id)
-      );
+      try {
+        await updateDoc(
+          game_id,
+          {
+            savedGames: arrayUnion({
+              id: gameItem.id,
+              name: gameItem.name,
+              slug: gameItem.slug,
+              background_image: gameItem.background_image,
+            }),
+          },
+          alert(`Game ${gameItem.name} added to library`)
+        );
+        // Alert();
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       navigate("/login");
     }
   };
   const addList = async () => {
     if (user?.email) {
-      await updateDoc(
-        game_id,
-        {
-          wishlists: arrayUnion({
-            id: gameItem.id,
-            name: gameItem.name,
-            slug: gameItem.slug,
-            background_image: gameItem.background_image,
-          }),
-        },
-        console.log(gameItem.id)
-      );
+      try {
+        await updateDoc(
+          game_id,
+          {
+            wishlists: arrayUnion({
+              id: gameItem.id,
+              name: gameItem.name,
+              slug: gameItem.slug,
+              background_image: gameItem.background_image,
+            }),
+          },
+          alert(`Game ${gameItem.name} added to wishlist`)
+        );
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       navigate("/login");
     }
@@ -62,7 +117,7 @@ const GameItem = ({ gameItem }) => {
             background_image: gameItem.background_image,
           }),
         },
-        console.log(gameItem.id)
+        alert(`Game ${gameItem.name} added to favorite`)
       );
     } else {
       navigate("/login");
@@ -104,7 +159,7 @@ const GameItem = ({ gameItem }) => {
           <div className="flex flex-row justify-between text-white items-center">
             <dt className="text-sm font-medium">Platforms</dt>
             <dd className="flex flex-wrap justify-end gap-x-2 mt-1 text-sm sm:mt-0">
-              {gameItem?.parent_platforms?.map((platform) => (
+              {gameItem?.parent_platforms?.slice(0, 3).map((platform) => (
                 <span
                   key={platform.platform.id}
                   className="flex justify-center h-8 bg-black p-2 rounded-full"
@@ -124,10 +179,7 @@ const GameItem = ({ gameItem }) => {
               onClick={saveGame}
               className="inline-flex w-full justify-center transition-colors duration-300 items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-zinc-600 hover:bg-zinc-700 focus:outline-none"
             >
-              <BookmarkIcon
-                className="h-4 w-4"
-                aria-hidden="true"
-              />
+              <BookmarkIcon className="h-4 w-4" aria-hidden="true" />
               Add to library
             </button>
             <button
@@ -135,10 +187,7 @@ const GameItem = ({ gameItem }) => {
               onClick={addList}
               className="flex flex-shrink justify-center transition-colors duration-300 items-center px-3 py-2 border border-zinc-600 shadow-sm text-sm leading-4 font-medium rounded-md text-white hover:text-zinc-600 hover:bg-white focus:outline-none"
             >
-              <PlusIcon
-                className="h-4 w-4"
-                aria-hidden="true"
-              />
+              <PlusIcon className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
         </div>

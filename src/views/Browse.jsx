@@ -1,5 +1,4 @@
 import React, { useState, Fragment } from "react";
-import { Outlet } from "react-router-dom";
 import { useGenresQuery, useSearchQuery } from "../services/rawgApi";
 import GameItem from "../components/GameItem";
 import { DebounceInput } from "react-debounce-input";
@@ -19,8 +18,14 @@ const orderBy = [
   { id: 7, name: "Average Rating", value: "rating" },
 ];
 
+const browseData = [
+  { id: 1, name: "Platforms", value: "platforms" },
+  { id: 2, name: "Genres", value: "genres" },
+];
+
 const Browse = () => {
   const [isFilterSelected] = useState(false);
+  const [browse] = useState(browseData);
   const [isSelected, setSelected] = useState(orderBy[2]);
   const [isSearch, setIsSearch] = useState(null);
 
@@ -44,15 +49,29 @@ const Browse = () => {
   return (
     <div className="max-w-[1760px] mx-auto sm:px-6 lg:px-8 my-10">
       <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
-        <div className="flex-1 gap-x-4 relative z-0 flex overflow-hidden">
+        <div className="flex-1 min-w-0 space-y-2">
+          <h1 className="text-3xl text-white font-bold">Search Your Game</h1>
+          <div className="mt-1 relative flex items-center">
+            <DebounceInput
+              minLength={2}
+              debounceTimeout={300}
+              placeholder="Search"
+              value={isSearch}
+              onChange={(e) => setIsSearch(e.target.value)}
+              className="bg-zinc-800 text-white border-zinc-700 block w-full pr-12 sm:text-sm rounded-md placeholder:text-zinc-500 focus:outline-none focus:ring-0 focus:border-zinc-700"
+            />
+            <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
+              <kbd className="inline-flex items-center border border-zinc-700 rounded px-2 text-sm font-sans font-medium text-zinc-500">
+                ⌘K
+              </kbd>
+            </div>
+          </div>
+        </div>
+        <div className="flex-1 gap-x-4 relative z-0 flex overflow-hidden my-4 sm:my-8">
           <main className="flex-1 w-3/4 relative z-0 overflow-y-auto focus:outline-none">
-            {/* Start main area*/}
-            <Outlet />
-            <div className="flex-1 min-w-0">
-              <h1 className="text-3xl text-white font-bold">
-                Search Your Game
-              </h1>
-              <div className="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
+            {/* Start main area*/}            
+            <div className="flex flex-col space-y-4">
+              <div className="mt-1 flex flex-col sm:flex-row sm:justify-end sm:flex-wrap sm:mt-0 sm:space-x-6">
                 <Listbox value={isSelected} onChange={setSelected}>
                   {({ open }) => (
                     <>
@@ -131,59 +150,47 @@ const Browse = () => {
                   )}
                 </Listbox>
               </div>
-            </div>
-
-            <div className="grid my-4 sm:my-8 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-              {searchError ? (
-                <div>Error...</div>
-              ) : searchLoading ? (
-                <Loading />
-              ) : searchFetching ? (
-                <div className="text-white text-3xl">Fetching...</div>
-              ) : (
-                searchData?.results?.map((game) => (
-                  <Link to={`/game/${game.slug}`}>
-                    <GameItem key={game.id} gameItem={game} />
-                  </Link>
-                ))
-              )}
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+                {searchError ? (
+                  <div>Error...</div>
+                ) : searchLoading ? (
+                  <Loading />
+                ) : searchFetching ? (
+                  <div className="text-white text-3xl">Fetching...</div>
+                ) : (
+                  searchData?.results?.map((game) => (
+                    <Link to={`/game/${game.slug}`}>
+                      <GameItem key={game.id} gameItem={game} />
+                    </Link>
+                  ))
+                )}
+              </div>
             </div>
             {/* End main area */}
           </main>
-          <aside className="hidden space-y-4 relative sm:flex sm:flex-col flex-shrink-0 w-1/4 overflow-y-auto">
-            <div className="py-5 inline-flex justify-between">
+          <aside className="hidden space-y-4 relative sm:flex sm:flex-col flex-shrink-0 w-1/6 overflow-y-auto">
+            <div className="pb-5 inline-flex justify-between">
               <h3 className="text-lg leading-6 font-medium text-white">
-                Filters
+                Browse
               </h3>
-              <button className="mt-1 max-w-2xl text-sm text-gray-500 hover:text-white">
-                Reset
-              </button>
             </div>
-            <div className="mt-1 relative flex items-center">
-              {/* <input
-                type="text"
-                name="search"
-                id="search"
-                placeholder="Search"
-                value={isSearch}
-                onChange={(e) => setIsSearch(e.target.value)}
-                className="bg-zinc-800 text-white border-zinc-700 block w-full pr-12 sm:text-sm rounded-md placeholder:text-zinc-500 focus:outline-none focus:ring-0 focus:border-zinc-700"
-              /> */}
-              <DebounceInput
-                minLength={2}
-                debounceTimeout={300}
-                placeholder="Search"
-                value={isSearch}
-                onChange={(e) => setIsSearch(e.target.value)}
-                className="bg-zinc-800 text-white border-zinc-700 block w-full pr-12 sm:text-sm rounded-md placeholder:text-zinc-500 focus:outline-none focus:ring-0 focus:border-zinc-700"
-              />
-              <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
-                <kbd className="inline-flex items-center border border-zinc-700 rounded px-2 text-sm font-sans font-medium text-zinc-500">
-                  ⌘K
-                </kbd>
-              </div>
+
+            <div className="w-full flex flex-col">
+              {browse.map((data) => (
+                <button
+                  type="button"
+                  className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white hover:bg-zinc-700 focus:outline-none focus:ring-0"
+                >
+                  <ChevronUpIcon
+                    className="-ml-1 mr-3 h-5 w-5"
+                    aria-hidden="true"
+                  />
+                  {data.name}
+                </button>
+              ))}
             </div>
             {/* Start secondary column (hidden on smaller screens) */}
+            {/* Genre List */}
             <div className="w-full">
               <div className="mx-auto w-full max-w-md border-y-2 border-zinc-800">
                 <Disclosure>
@@ -205,7 +212,7 @@ const Browse = () => {
                         <Disclosure.Panel>
                           <div className="flex flex-col pl-4 border-l-2 border-zinc-800">
                             {data?.results?.map((genre) => (
-                              <button
+                              <Link to={`/genres/${genre.slug}`}
                                 className={classNames(
                                   isFilterSelected
                                     ? "bg-purple-100"
@@ -214,7 +221,7 @@ const Browse = () => {
                                 key={genre.id}
                               >
                                 {genre.name}
-                              </button>
+                              </Link>
                             ))}
                           </div>
                         </Disclosure.Panel>
