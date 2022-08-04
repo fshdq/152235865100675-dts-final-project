@@ -77,7 +77,8 @@ const Navbar = () => {
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 <NavLink link="/" name="Home" />
                 <NavLink link="/browse" name="Browse Game" />
-                <NavLink link="/reviews" name="Reviews" />
+                <NavLink link="/genres" name="Genres" />
+                <NavLink link="/platforms" name="Platforms" />
               </div>
             </div>
             <div className="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">

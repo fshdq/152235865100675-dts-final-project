@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 
 import { auth, db } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteField } from "firebase/firestore";
 
 const SavedGame = ({ gameItem, button_name }) => {
   const [games] = useState([]);
   const [user] = useAuthState(auth);
 
-  const movieRef = doc(db, "users", `${user?.email}`);
+  const gameRef = doc(db, "users", `${user?.email}`);
 
   const removeFromFavorite = async (passedID) => {
     try {
       const result = games.filter((item) => item.id !== passedID);
-      await updateDoc(movieRef, { favorites: result });
+      await updateDoc(gameRef, { favorites: result });
     } catch (error) {
       console.log(error);
     }
@@ -23,7 +23,7 @@ const SavedGame = ({ gameItem, button_name }) => {
   const removeFromLibrary = async (passedID) => {
     try {
       const result = games.filter((item) => item.id !== passedID);
-      await updateDoc(movieRef, { savedGames: result });
+      await updateDoc(gameRef, { savedGames: result });
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +31,7 @@ const SavedGame = ({ gameItem, button_name }) => {
   const removeFromWishlist = async (passedID) => {
     try {
       const result = games.filter((item) => item.id !== passedID);
-      await updateDoc(movieRef, { wishlists: result });
+      await updateDoc(gameRef, { wishlists: result });
     } catch (error) {
       console.log(error);
     }

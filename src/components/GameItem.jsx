@@ -15,18 +15,23 @@ const GameItem = ({ gameItem }) => {
   // const moviesData = movies.slice(0, 10);
   const saveGame = async () => {
     if (user?.email) {
-      await updateDoc(
-        game_id,
-        {
-          savedGames: arrayUnion({
-            id: gameItem.id,
-            name: gameItem.name,
-            slug: gameItem.slug,
-            background_image: gameItem.background_image,
-          }),
-        },
-        console.log(gameItem.id)
-      );
+      try {
+        await updateDoc(
+          game_id,
+          {
+            savedGames: arrayUnion({
+              id: gameItem.id,
+              name: gameItem.name,
+              slug: gameItem.slug,
+              background_image: gameItem.background_image,
+            }),
+          },
+          console.log(gameItem.id),
+          alert("Game saved!")
+        );
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       navigate("/login");
     }
@@ -104,7 +109,7 @@ const GameItem = ({ gameItem }) => {
           <div className="flex flex-row justify-between text-white items-center">
             <dt className="text-sm font-medium">Platforms</dt>
             <dd className="flex flex-wrap justify-end gap-x-2 mt-1 text-sm sm:mt-0">
-              {gameItem?.parent_platforms?.map((platform) => (
+              {gameItem?.parent_platforms?.slice(0,3).map((platform) => (
                 <span
                   key={platform.platform.id}
                   className="flex justify-center h-8 bg-black p-2 rounded-full"
@@ -124,10 +129,7 @@ const GameItem = ({ gameItem }) => {
               onClick={saveGame}
               className="inline-flex w-full justify-center transition-colors duration-300 items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-zinc-600 hover:bg-zinc-700 focus:outline-none"
             >
-              <BookmarkIcon
-                className="h-4 w-4"
-                aria-hidden="true"
-              />
+              <BookmarkIcon className="h-4 w-4" aria-hidden="true" />
               Add to library
             </button>
             <button
@@ -135,10 +137,7 @@ const GameItem = ({ gameItem }) => {
               onClick={addList}
               className="flex flex-shrink justify-center transition-colors duration-300 items-center px-3 py-2 border border-zinc-600 shadow-sm text-sm leading-4 font-medium rounded-md text-white hover:text-zinc-600 hover:bg-white focus:outline-none"
             >
-              <PlusIcon
-                className="h-4 w-4"
-                aria-hidden="true"
-              />
+              <PlusIcon className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
         </div>
