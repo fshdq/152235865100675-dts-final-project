@@ -2,7 +2,7 @@ import React from "react";
 import FeaturedGame from "../components/FeaturedGame";
 import GameSlider from "../components/GameSlider";
 
-import { useNewGamesQuery } from "../services/rawgApi";
+import { useNewGamesQuery, useUpcomingGamesQuery } from "../services/rawgApi";
 
 const Home = () => {
   const getCurrentDate = (separator) => {
@@ -25,6 +25,7 @@ const Home = () => {
   const currentDate = getCurrentDate("-");
   const currentYear = new Date().getFullYear();
   const firstoftheyear = `${currentYear}-01-01`;
+  const nextYear = `${currentYear + 1}-01-01`;
 
   // New Release
   const {
@@ -37,9 +38,17 @@ const Home = () => {
     currentDate: currentDate,
   });
 
-  // Top Release
-
   // Coming Soon
+
+  const {
+    data: upcomingData,
+    error: upcomingError,
+    isLoading: upcomingLoading,
+  } = useUpcomingGamesQuery({
+    page_size: 10,
+    currentDate: currentDate,
+    nextYear: nextYear,
+  });
 
   return (
     <div className="max-w-[1760px] mx-auto sm:px-6 lg:px-8 my-10">
@@ -60,10 +69,10 @@ const Home = () => {
 
           {/* New Release */}
           <GameSlider
-            heading="New Releases"
-            data={NewReleaseData}
-            error={error}
-            isLoading={isLoading}
+            heading="Upcoming Games"
+            data={upcomingData}
+            error={upcomingError}
+            isLoading={upcomingLoading}
           />
         </div>
       </div>

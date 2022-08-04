@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 const WithoutNav = () => {
   return (
     <>
-      <div className="h-screen">
+      <div className="min-h-screen">
         <Outlet />
       </div>
       <Footer />

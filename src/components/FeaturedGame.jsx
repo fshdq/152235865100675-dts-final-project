@@ -31,8 +31,8 @@ const GameList = () => {
   });
 
   return (
-    <div className="flex flex-row gap-x-4">
-      <div id="featuredImage" className="w-8/12">
+    <div className="flex flex-col sm:flex-row gap-4">
+      <div id="featuredImage" className="w-full">
         {error ? (
           <div>Error: {error.message}</div>
         ) : isLoading ? (
@@ -41,7 +41,7 @@ const GameList = () => {
           <FeaturedGameImage featuredGame={data?.results?.[0]} />
         )}
       </div>
-      <div className="w-4/12 flex flex-col max-w-sm gap-y-2">
+      <div className="w-full sm:w-4/12 flex flex-col max-w-sm gap-y-2">
         {error ? (
           <div>Error!</div>
         ) : isLoading ? (
